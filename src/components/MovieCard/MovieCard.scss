@@ -1,0 +1,61 @@
+$secondary-font-color: #dec403;
+
+.movie-card {
+  width: 392px;
+  height: 200px;
+  border-radius: 8px;
+  border: 1px solid #383838;
+  display: flex;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: margin-left .5s ease;
+
+  .card-content {
+    padding: 16px;
+  }
+
+  .movie-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .movie-tags {
+    color: #929292;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .title {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 28px;
+  }
+
+  .rating {
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    gap: 4px;
+  }
+
+  .rating span {
+    color: #fdff00;
+    font-weight: 700;
+  }
+
+  .description {
+    color: $secondary-font-color;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .movie-links {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+  }
+}
