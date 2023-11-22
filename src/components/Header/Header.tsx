@@ -2,13 +2,20 @@ import { useState } from "react";
 import "./Header.scss";
 import logo from "./logo.svg";
 
-export function Header() {
-  const [isOpened, setIsOpened] = useState(false);
+type HeaderProps = {
+  isClosed: boolean;
+  clickHandler: () => void;
+};
 
-  const navCssClass = isOpened ? "opened" : "";
+export function Header(props: HeaderProps) {
+  const isClosed = props.isClosed;
+  const navCssClass = !isClosed ? "opened" : "";
 
-  function handleBurgerButtonClick() {
-    setIsOpened(!isOpened);
+  function handleBurgerButtonClick(
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) {
+    event.stopPropagation();
+    props.clickHandler();
   }
 
   return (
@@ -37,7 +44,10 @@ export function Header() {
             Watch Series
           </a>
         </nav>
-        <button className="mobile-only" onClick={handleBurgerButtonClick}>
+        <button
+          className="mobile-only"
+          onClick={(event) => handleBurgerButtonClick(event)}
+        >
           burger
         </button>
       </div>

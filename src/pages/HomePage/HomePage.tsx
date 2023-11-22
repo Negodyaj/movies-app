@@ -1,7 +1,11 @@
 import { MovieCard } from "../../components/MovieCard/MovieCard";
 import "./HomePage.scss";
 
-export function HomePage() {
+type HomePageProps = {
+  handler: () => void;
+};
+
+export function HomePage(props: HomePageProps) {
   const movies = [
     {
       name: "Batman Begins",
@@ -98,7 +102,6 @@ export function HomePage() {
   return (
     <section className="home-page">
       <div>HomePage works! o_O</div>
-      <button>HomePage press me</button>
       {movies.map((movie, index) => (
         <MovieCard
           key={`movie-${index}`}
@@ -106,6 +109,7 @@ export function HomePage() {
           someSecretValue={index}
         />
       ))}
+      <button onClick={props.handler}>HomePage press me</button>
     </section>
   );
 }
