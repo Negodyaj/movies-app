@@ -1,10 +1,13 @@
 import { useState } from "react";
 import "./Header.scss";
 import logo from "./logo.svg";
+import { Link } from "react-router-dom";
+import { User } from "../../models/user";
 
 type HeaderProps = {
   isClosed: boolean;
   clickHandler: () => void;
+  userInfo: User | undefined;
 };
 
 export function Header(props: HeaderProps) {
@@ -21,13 +24,14 @@ export function Header(props: HeaderProps) {
   return (
     <header>
       <div className="container flex-between">
-        <a href="/">
+        <Link to="/">
           <img src={logo} alt="" />
-        </a>
+        </Link>
+        Current user: {props.userInfo?.login}
         <nav className={navCssClass}>
-          <a href="#" className="nav-link">
-            Who is Batman?
-          </a>
+          <Link to="login" className="nav-link">
+            Login
+          </Link>
           <a href="#" className="nav-link">
             Photos
           </a>
@@ -37,12 +41,12 @@ export function Header(props: HeaderProps) {
           <a href="#" className="nav-link">
             Awards
           </a>
-          <a href="#" className="nav-link">
-            DC Comics
-          </a>
-          <a href="#" className="link-button medium">
-            Watch Series
-          </a>
+          <Link to="catalog" className="nav-link">
+            Catalog
+          </Link>
+          <Link to="move" className="link-button medium">
+            Movie
+          </Link>
         </nav>
         <button
           className="mobile-only"
