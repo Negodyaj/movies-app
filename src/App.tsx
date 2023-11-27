@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./App.scss";
 import { HomePage } from "./pages/HomePage/HomePage";
-import { Header } from "./components/Header/Header";
+import { AppHeader } from "./components/AppHeader/AppHeader";
 import { CatalogPage } from "./pages/CatalogPage/CatalogPage";
 import { MoviePage } from "./pages/MoviePage/MoviePage";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
 import { User } from "./models/user";
+
+import { Layout, theme } from "antd";
+const { Content, Footer } = Layout;
 
 export function App() {
   const [isClosed, setIsClosed] = useState(true);
@@ -20,6 +23,10 @@ export function App() {
       navigate("login");
     }
   }, [userInfo, navigate]);
+
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
 
   function handleAppClick() {
     setIsClosed(true);
@@ -37,29 +44,40 @@ export function App() {
   };
 
   return (
-    <div className="App" onClick={handleAppClick}>
-      <Header
+    <Layout className="layout" onClick={handleAppClick}>
+      <AppHeader
         isClosed={isClosed}
         clickHandler={handleButtonClick}
         userInfo={userInfo}
       />
-      <Routes>
-        <Route path="/" element={<HomePage handler={increaseCounter} />} />
-        <Route
-          path="login"
-          element={<LoginPage logInHandler={handleLogIn} />}
-        />
-        <Route
-          path="catalog"
-          element={<CatalogPage clicksCount={clicksCount} />}
-        />
-        <Route path="movie" element={<MoviePage />} />
+      <Content style={{ padding: "0 50px" }}>
+        <Routes>
+          <Route path="/" element={<HomePage handler={increaseCounter} />} />
+          <Route
+            path="login"
+            element={<LoginPage logInHandler={handleLogIn} />}
+          />
+          <Route
+            path="catalog"
+            element={<CatalogPage clicksCount={clicksCount} />}
+          />
+          <Route path="movie" element={<MoviePage />} />
 
-        {/* Using path="*"" means "match anything", so this route
+          {/* Using path="*"" means "match anything", so this route
               acts like a catch-all for URLs that we don't have explicit
               routes for. */}
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </div>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+        {/* <div
+            className="site-layout-content"
+            style={{ background: colorBgContainer }}
+          >
+            Content
+          </div> */}
+      </Content>
+      <Footer style={{ textAlign: "center" }}>
+        Ant Design ©2023 Created by Ant UED
+      </Footer>
+    </Layout>
   );
 }

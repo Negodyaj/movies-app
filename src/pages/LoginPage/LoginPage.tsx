@@ -1,3 +1,4 @@
+import { Button, Checkbox, Col, Flex, Form, Input, Row } from "antd";
 import { User } from "../../models/user";
 import "./LoginPage.scss";
 
@@ -26,60 +27,112 @@ export const LoginPage = (props: LoginPageProps) => {
     setMode("login");
   };
 
+  type FieldType = {
+    username?: string;
+    password?: string;
+    remember?: boolean;
+  };
+
+  const onFinish = (values: any) => {
+    console.log("Success:", values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+  };
+
   return (
-    <div className="login-page">
-      <div className="container">
-        {mode === "login" ? (
-          <div className="login-part">
-            <form>
-              <label>
-                Login: <input type="text" />
-              </label>
-              <label>
-                Password: <input type="password" />
-              </label>
-              <button type="button" onClick={handleLoginClick}>
-                Let me in!
-              </button>
-            </form>
-            <div className="link-container">
-              Don't have an account?
-              <button
-                className="link-button"
-                onClick={() => setMode("register")}
+    <>
+      <Row className="login-page">
+        <Col offset={6} span={12}>
+          {mode === "login" ? (
+            <div className="login-part">
+              <Form
+                name="basic"
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
+                style={{ maxWidth: 600 }}
+                initialValues={{ remember: true }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
               >
-                Register
-              </button>
+                <Form.Item<FieldType>
+                  label="Username"
+                  name="username"
+                  rules={[
+                    { required: true, message: "Please input your username!" },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+
+                <Form.Item<FieldType>
+                  label="Password"
+                  name="password"
+                  rules={[
+                    { required: true, message: "Please input your password!" },
+                  ]}
+                >
+                  <Input.Password />
+                </Form.Item>
+
+                <Form.Item<FieldType>
+                  name="remember"
+                  valuePropName="checked"
+                  wrapperCol={{ offset: 8, span: 16 }}
+                >
+                  <Checkbox>Remember me</Checkbox>
+                </Form.Item>
+
+                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                  <Button type="primary" htmlType="submit">
+                    Submit
+                  </Button>
+                </Form.Item>
+
+                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                  <Flex gap={8} align="center">
+                    Don't have an account?
+                    <Button type="link" onClick={() => setMode("register")}>
+                      Register
+                    </Button>
+                  </Flex>
+                </Form.Item>
+              </Form>
             </div>
-          </div>
-        ) : (
-          <div className="register-part">
-            <form>
-              <label>
-                Login: <input type="text" />
-              </label>
-              <label>
-                Name: <input type="text" />
-              </label>
-              <label>
-                Password: <input type="password" />
-              </label>
-              <label>
-                Repeat Password: <input type="password" />
-              </label>
-              <button type="button" onClick={handleRegisterClick}>
-                Register
-              </button>
-            </form>
-            <div className="link-container">
-              Have an account?
-              <button className="link-button" onClick={() => setMode("login")}>
-                Log in
-              </button>
+          ) : (
+            <div className="register-part">
+              <form>
+                <label>
+                  Login: <input type="text" />
+                </label>
+                <label>
+                  Name: <input type="text" />
+                </label>
+                <label>
+                  Password: <input type="password" />
+                </label>
+                <label>
+                  Repeat Password: <input type="password" />
+                </label>
+                <button type="button" onClick={handleRegisterClick}>
+                  Register
+                </button>
+              </form>
+              <div className="link-container">
+                Have an account?
+                <button
+                  className="link-button"
+                  onClick={() => setMode("login")}
+                >
+                  Log in
+                </button>
+              </div>
             </div>
-          </div>
-        )}
-      </div>
-    </div>
+          )}
+        </Col>
+      </Row>
+    </>
   );
 };

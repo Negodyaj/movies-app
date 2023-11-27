@@ -1,4 +1,10 @@
 header {
+  display: flex;
+
+  .nav-menu {
+    flex-grow: 1;
+  }
+
   .container {
     height: 72px;
     align-items: center;
