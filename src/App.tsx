@@ -20,7 +20,7 @@ export function App() {
 
   useEffect(() => {
     if (!userInfo) {
-      navigate("login");
+      //navigate("login");
     }
   }, [userInfo, navigate]);
 
@@ -61,7 +61,8 @@ export function App() {
             path="catalog"
             element={<CatalogPage clicksCount={clicksCount} />}
           />
-          <Route path="movie" element={<MoviePage />} />
+          <Route path="movie/:movieId" element={<MoviePage />} />
+          {/* localhost:3000/movie/7 */}
 
           {/* Using path="*"" means "match anything", so this route
               acts like a catch-all for URLs that we don't have explicit

@@ -1,8 +1,17 @@
-import { Button, Checkbox, Col, Flex, Form, Input, Row } from "antd";
+import {
+  Button,
+  Checkbox,
+  Col,
+  Flex,
+  Form,
+  FormInstance,
+  Input,
+  Row,
+} from "antd";
 import { User } from "../../models/user";
 import "./LoginPage.scss";
 
-import React, { useState } from "react";
+import React, { Ref, useEffect, useRef, useState } from "react";
 
 type LoginPageProps = {
   logInHandler: (user: User) => void;
@@ -10,6 +19,9 @@ type LoginPageProps = {
 
 export const LoginPage = (props: LoginPageProps) => {
   const [mode, setMode] = useState<"login" | "register">("login");
+
+  useEffect(() => {}, []);
+
   const handleLoginClick = () => {
     // let's say this object received from backend side
     const user: User = {
@@ -33,8 +45,11 @@ export const LoginPage = (props: LoginPageProps) => {
     remember?: boolean;
   };
 
+  const formRef = useRef<HTMLFormElement>(null);
+
   const onFinish = (values: any) => {
     console.log("Success:", values);
+    handleLoginClick();
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -103,7 +118,7 @@ export const LoginPage = (props: LoginPageProps) => {
             </div>
           ) : (
             <div className="register-part">
-              <form>
+              <form ref={formRef}>
                 <label>
                   Login: <input type="text" />
                 </label>
@@ -124,7 +139,10 @@ export const LoginPage = (props: LoginPageProps) => {
                 Have an account?
                 <button
                   className="link-button"
-                  onClick={() => setMode("login")}
+                  onClick={() => {
+                    setMode("login");
+                    console.log(formRef.current);
+                  }}
                 >
                   Log in
                 </button>

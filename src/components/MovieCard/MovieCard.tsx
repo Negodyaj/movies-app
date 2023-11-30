@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Movie } from "../../models/movie";
 import "./MovieCard.scss";
 
@@ -26,12 +27,12 @@ export function MovieCard(props: MovieCardProps) {
           <a href="${movie.watchUrl}" className="link-button small">
             Watch
           </a>
-          <a
-            href="${movie.detailsUrl}"
+          <Link
+            to={`/movie/${movie.id}`}
             className="link-button small with-border"
           >
             Details
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -29,6 +29,7 @@ export function AppHeader(props: AppHeaderProps) {
       label: "Home",
     },
     { key: "catalog", label: "Catalog" },
+    { key: "movie", label: "Movie" },
     { key: "move", label: "Bad link" },
     { key: "login", label: "Login/Register" },
   ];
