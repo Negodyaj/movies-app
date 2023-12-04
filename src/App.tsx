@@ -43,6 +43,10 @@ export function App() {
     alert("got the data. it's " + user.name);
   };
 
+  fetch("https://jsonplaceholder.typicode.com/posts")
+    .then((response) => response.json())
+    .then((json) => console.log(json));
+
   return (
     <Layout className="layout" onClick={handleAppClick}>
       <AppHeader

@@ -1,13 +1,4 @@
-import {
-  Button,
-  Checkbox,
-  Col,
-  Flex,
-  Form,
-  FormInstance,
-  Input,
-  Row,
-} from "antd";
+import { Button, Checkbox, Col, Flex, Form, Input, Row } from "antd";
 import { User } from "../../models/user";
 import "./LoginPage.scss";
 
@@ -39,7 +30,7 @@ export const LoginPage = (props: LoginPageProps) => {
     setMode("login");
   };
 
-  type FieldType = {
+  type LoginFormFields = {
     username?: string;
     password?: string;
     remember?: boolean;
@@ -47,8 +38,24 @@ export const LoginPage = (props: LoginPageProps) => {
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: LoginFormFields) => {
     console.log("Success:", values);
+
+    const payload = {
+      login: values.username,
+      password: values.password,
+    };
+
+    fetch("https://jsonplaceholder.typicode.com/login", {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json));
+
     handleLoginClick();
   };
 
@@ -72,7 +79,7 @@ export const LoginPage = (props: LoginPageProps) => {
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
               >
-                <Form.Item<FieldType>
+                <Form.Item<LoginFormFields>
                   label="Username"
                   name="username"
                   rules={[
@@ -82,7 +89,7 @@ export const LoginPage = (props: LoginPageProps) => {
                   <Input />
                 </Form.Item>
 
-                <Form.Item<FieldType>
+                <Form.Item<LoginFormFields>
                   label="Password"
                   name="password"
                   rules={[
@@ -92,7 +99,7 @@ export const LoginPage = (props: LoginPageProps) => {
                   <Input.Password />
                 </Form.Item>
 
-                <Form.Item<FieldType>
+                <Form.Item<LoginFormFields>
                   name="remember"
                   valuePropName="checked"
                   wrapperCol={{ offset: 8, span: 16 }}
