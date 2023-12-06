@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { MovieCard } from "../../components/MovieCard/MovieCard";
 import "./HomePage.scss";
 import { mockMovies } from "./mockMovies";
+import axios from "axios";
 
 type HomePageProps = {
   handler: () => void;
@@ -12,14 +13,13 @@ export function HomePage(props: HomePageProps) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
+      const usersResponse = await axios.get(
         "https://jsonplaceholder.typicode.com/users"
       );
-      const users = await response.json();
 
       const newMovies = movies.map((movie, index) => {
         const newMovie = { ...movie };
-        newMovie.director = users[index].name;
+        newMovie.director = usersResponse.data[index].name;
         return newMovie;
       });
       setMovies(newMovies);

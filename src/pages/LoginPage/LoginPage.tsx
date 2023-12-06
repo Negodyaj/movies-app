@@ -3,6 +3,7 @@ import { User } from "../../models/user";
 import "./LoginPage.scss";
 
 import React, { Ref, useEffect, useRef, useState } from "react";
+import axios, { AxiosError } from "axios";
 
 type LoginPageProps = {
   logInHandler: (user: User) => void;
@@ -46,15 +47,19 @@ export const LoginPage = (props: LoginPageProps) => {
       password: values.password,
     };
 
-    fetch("https://jsonplaceholder.typicode.com/login", {
-      method: "POST",
-      body: JSON.stringify(payload),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => console.log(json));
+    const sendRequest = async () => {
+      try {
+        const response = await axios.post(
+          "https://jsonplaceholder.typicode.com/login",
+          payload
+        );
+        console.log(response);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    sendRequest();
 
     handleLoginClick();
   };
