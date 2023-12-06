@@ -3,6 +3,7 @@ import { MovieCard } from "../../components/MovieCard/MovieCard";
 import "./HomePage.scss";
 import { mockMovies } from "./mockMovies";
 import axios from "axios";
+import { sendGetRequest } from "../../services/api.service";
 
 type HomePageProps = {
   handler: () => void;
@@ -13,13 +14,11 @@ export function HomePage(props: HomePageProps) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const usersResponse = await axios.get(
-        "https://jsonplaceholder.typicode.com/users"
-      );
+      const users = await sendGetRequest("/users");
 
       const newMovies = movies.map((movie, index) => {
         const newMovie = { ...movie };
-        newMovie.director = usersResponse.data[index].name;
+        newMovie.director = users[index].name;
         return newMovie;
       });
       setMovies(newMovies);

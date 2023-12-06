@@ -4,6 +4,7 @@ import "./LoginPage.scss";
 
 import React, { Ref, useEffect, useRef, useState } from "react";
 import axios, { AxiosError } from "axios";
+import { sendPostRequest } from "../../services/api.service";
 
 type LoginPageProps = {
   logInHandler: (user: User) => void;
@@ -49,10 +50,7 @@ export const LoginPage = (props: LoginPageProps) => {
 
     const sendRequest = async () => {
       try {
-        const response = await axios.post(
-          "https://jsonplaceholder.typicode.com/login",
-          payload
-        );
+        const response = await sendPostRequest("/login", payload);
         console.log(response);
       } catch (err) {
         console.error(err);
