@@ -18,6 +18,7 @@ export function MovieCard(props: MovieCardProps) {
         <div className="movie-details">
           <div className="movie-tags">{movie.tags.join(", ")}</div>
           <div className="title">{movie.name}</div>
+          <div>{movie.director}</div>
           <div className="rating">
             IMDB:<span>{movie.imdb}</span>
           </div>

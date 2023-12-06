@@ -7,4 +7,5 @@ export type Movie = {
   detailsUrl: string;
   imageSrc: string;
   tags: string[];
+  director: string;
 };

@@ -12,6 +12,7 @@ export const getMovieDetails = (movieId: number): Movie => {
     detailsUrl: "url2",
     imageSrc: "./images/movie1.png",
     tags: ["action", "adventure"],
+    director: "",
   };
 };
 
