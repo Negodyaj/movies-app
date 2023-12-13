@@ -10,6 +10,8 @@ import { LoginPage } from "./pages/LoginPage/LoginPage";
 import { User } from "./models/user";
 
 import { Layout, theme } from "antd";
+import { useAppDispatch } from "./store/hooks";
+import { incrementByAmount } from "./store/counter.slice";
 const { Content, Footer } = Layout;
 
 export function App() {
@@ -17,6 +19,7 @@ export function App() {
   const [clicksCount, setClicksCount] = useState(555);
   const [userInfo, setUserInfo] = useState<User | undefined>(undefined);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!userInfo) {
@@ -45,6 +48,7 @@ export function App() {
 
   return (
     <Layout className="layout" onClick={handleAppClick}>
+      <button onClick={() => dispatch(incrementByAmount(3))}>+</button>
       <AppHeader
         isClosed={isClosed}
         clickHandler={handleButtonClick}

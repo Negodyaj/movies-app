@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Movie } from "../../models/movie";
 import "./MovieCard.scss";
+import { selectCount } from "../../store/counter.slice";
+import { useAppSelector } from "../../store/hooks";
 
 type MovieCardProps = {
   movie: Movie;
@@ -8,11 +10,12 @@ type MovieCardProps = {
 };
 
 export function MovieCard(props: MovieCardProps) {
+  const counter = useAppSelector(selectCount);
   const movie = props.movie;
 
   return (
     <div className="movie-card">
-      {props.someSecretValue}
+      {counter}
       <img src="${movie.imageSrc}" alt="" />
       <div className="card-content">
         <div className="movie-details">
